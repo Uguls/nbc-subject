@@ -1,4 +1,4 @@
-package nbc.nbcsubject.common.jwt;
+package nbc.nbcsubject.domain.user.security;
 
 import java.util.Collection;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -14,13 +13,9 @@ import nbc.nbcsubject.domain.user.entity.User;
 
 @Getter
 @RequiredArgsConstructor
-public class UserDetailsImpl implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
 	private final User user;
-
-	public Long getId() {
-		return user.getId();
-	}
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
