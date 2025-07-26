@@ -1,0 +1,8 @@
+spring:
+  application:
+  name: nbc-subject
+
+jwt:
+  secret: nbcSubjectApllication123123123
+  accessToken-expiration-time: 3600000
+  refreshToken-expiration-time: 1209600000
