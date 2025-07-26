@@ -8,14 +8,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Table(name = "users")
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Getter
 public class User {
@@ -43,6 +40,10 @@ public class User {
 		this.username = username;
 		this.nickName = nickName;
 		this.password = password;
+		this.userRole = userRole;
+	}
+
+	public void updateRole (UserRole userRole) {
 		this.userRole = userRole;
 	}
 

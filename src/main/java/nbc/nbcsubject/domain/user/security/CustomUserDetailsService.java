@@ -1,5 +1,6 @@
 package nbc.nbcsubject.domain.user.security;
 
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -12,6 +13,7 @@ import nbc.nbcsubject.domain.user.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
+@EnableMethodSecurity
 @Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
@@ -21,8 +23,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepository.findByUsername(username)
 				.orElseThrow(() -> new RuntimeException("User not found!"));
-
-		System.out.println("loadUserByUsername 호출");
 
         return new CustomUserDetails(user);
     }

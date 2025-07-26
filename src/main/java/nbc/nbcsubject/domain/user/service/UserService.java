@@ -56,7 +56,6 @@ public class UserService {
     }
 
     public UserLoginResponse login (UserLoginRequest request) {
-        System.out.println("login 서비스 호출 \n");
         User user = userRepository.findByUsername((request.getUsername()))
                 .orElseThrow(() -> new UserException(UserExceptionCode.USER_NOT_FOUND));
 

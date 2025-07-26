@@ -1,5 +1,6 @@
 package nbc.nbcsubject.common.config;
 
+import nbc.nbcsubject.common.exception.handler.CustomAccessDeniedHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -41,7 +42,7 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain securityFilterChain(HttpSecurity http, CustomAccessDeniedHandler customAccessDeniedHandler) throws Exception {
 
 		http.csrf(AbstractHttpConfigurer::disable);
 		http.cors(Customizer.withDefaults());
@@ -61,6 +62,8 @@ public class SecurityConfig {
 		);
 
 		http.headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+
+		http.exceptionHandling(exception -> exception.accessDeniedHandler(customAccessDeniedHandler));
 
 		return http.build();
 
