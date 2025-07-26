@@ -11,4 +11,8 @@ import nbc.nbcsubject.domain.user.entity.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 	Optional<User> findBynickName(String nickName);
+
+    boolean existsByNickName(String nickName);
+
+    Optional<User> findByUsername(String username);
 }

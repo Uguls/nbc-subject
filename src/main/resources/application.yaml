@@ -2,7 +2,35 @@ spring:
   application:
   name: nbc-subject
 
+  # jpa
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
+      hibernate:
+        format_sql: true
+
+  # h2
+  h2:
+    console:
+      enabled: true
+      settings:
+        trace: false
+        web-allow-others: true
+
+  # db
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:nbc_subject
+    username: sa
+    password:
+
+# logging
+logging.level:
+  org.hibernate.SQL: debug
+
+# jwt
 jwt:
-  secret: nbcSubjectApllication123123123
+  secret: nbcSubjectApllication1231231233123123123123123123123123123123123113131321321321321321321321321
   accessToken-expiration-time: 3600000
   refreshToken-expiration-time: 1209600000

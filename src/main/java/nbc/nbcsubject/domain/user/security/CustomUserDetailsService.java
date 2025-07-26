@@ -15,18 +15,21 @@ import nbc.nbcsubject.domain.user.repository.UserRepository;
 @Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		User user = userRepository.findBynickName(username).orElseThrow(() -> new RuntimeException());
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.findByUsername(username)
+				.orElseThrow(() -> new RuntimeException("User not found!"));
 
-		return new CustomUserDetails(user);
-	}
+		System.out.println("loadUserByUsername 호출");
 
-	public UserDetails loadUserById(Long userId) throws UsernameNotFoundException {
-          User user = userRepository.findById(userId)
-              .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + userId));
-          return new CustomUserDetails(user);
-      }
+        return new CustomUserDetails(user);
+    }
+
+    public UserDetails loadUserById(Long userId) throws UsernameNotFoundException {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다: " + userId));
+        return new CustomUserDetails(user);
+    }
 }
