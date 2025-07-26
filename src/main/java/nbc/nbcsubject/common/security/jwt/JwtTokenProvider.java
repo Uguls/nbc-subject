@@ -54,7 +54,7 @@ public class JwtTokenProvider {
 
 	public String createAccessToken(Authentication authentication) {
 		CustomUserDetails userDetails = (CustomUserDetails)authentication.getPrincipal();
-		String nickName = userDetails.getUser().getNickName();
+		String nickName = userDetails.getUser().getNickname();
 
 		String authorities = authentication.getAuthorities().stream()
 			.map(GrantedAuthority::getAuthority)
@@ -74,7 +74,7 @@ public class JwtTokenProvider {
 
 	public String createRefreshToken(Authentication authentication) {
 		CustomUserDetails userDetails = (CustomUserDetails)authentication.getPrincipal();
-		String nickName = userDetails.getUser().getNickName();
+		String nickName = userDetails.getUser().getNickname();
 
 		String authorities = authentication.getAuthorities().stream()
 			.map(GrantedAuthority::getAuthority)

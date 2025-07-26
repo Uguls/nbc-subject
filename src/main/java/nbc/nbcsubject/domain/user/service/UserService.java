@@ -38,7 +38,7 @@ public class UserService {
 
         User user = User.builder()
                 .username(request.getUsername())
-                .nickName(request.getNickname())
+                .nickname(request.getNickname())
                 .password(encoded)
                 .userRole(UserRole.ROLE_USER)
                 .build();
@@ -47,7 +47,7 @@ public class UserService {
 
         UserSignupResponse userSignupResponse = UserSignupResponse.builder()
                 .username(user.getUsername())
-                .nickname(user.getNickName())
+                .nickname(user.getNickname())
                 .roles(List.of(user.getUserRole().name()))
                 .build();
 

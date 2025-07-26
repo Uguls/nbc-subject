@@ -8,7 +8,7 @@ import nbc.nbcsubject.domain.user.entity.User;
 import nbc.nbcsubject.domain.user.entity.UserRole;
 import nbc.nbcsubject.domain.user.exception.UserException;
 import nbc.nbcsubject.domain.user.repository.UserRepository;
-import nbc.nbcsubject.domain.user.service.UserService;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class AdminService {
 
         UpdateUserRoleResponse updateUserRoleResponse = UpdateUserRoleResponse.builder()
                 .username(user.getUsername())
-                .nickname(user.getNickName())
+                .nickname(user.getNickname())
                 .roles(List.of(user.getUserRole().name()))
                 .build();
 
