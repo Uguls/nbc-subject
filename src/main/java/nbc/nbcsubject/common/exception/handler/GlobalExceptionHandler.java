@@ -21,7 +21,10 @@ import nbc.nbcsubject.common.response.ResponseCode;
 public class GlobalExceptionHandler {
 	@ExceptionHandler(BaseException.class)
 	public ResponseEntity<CommonResponse<ResponseCode>> handleBaseException(BaseException baseException) {
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(CommonResponse.from(baseException.getResponseCode()));
+		log.error("예외 발생: {} (ErrorCode: {})", baseException.getMessage(), baseException.getMessage());
+
+		return ResponseEntity.status(baseException.getHttpStatus())
+			.body(CommonResponse.from(baseException.getResponseCode()));
 	}
 
 	@ExceptionHandler(MethodArgumentNotValidException.class)

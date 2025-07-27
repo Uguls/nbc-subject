@@ -96,13 +96,13 @@ public class JwtTokenProvider {
 			JwtParser parser = Jwts.parser().verifyWith(secretKey).build();
 			parser.parseClaimsJws(token);
 		} catch (SecurityException | MalformedJwtException e) {
-			throw new JwtAuthenticationException(JwtException.INVALID_SIGNATURE);
+			throw new JwtAuthenticationException(JwtExceptionCode.INVALID_SIGNATURE);
 		} catch (ExpiredJwtException e) {
-			throw new JwtAuthenticationException(JwtException.EXPIRED_TOKEN);
+			throw new JwtAuthenticationException(JwtExceptionCode.EXPIRED_TOKEN);
 		} catch (UnsupportedJwtException e) {
-			throw new JwtAuthenticationException(JwtException.UNSUPPORTED_TOKEN);
+			throw new JwtAuthenticationException(JwtExceptionCode.UNSUPPORTED_TOKEN);
 		} catch (IllegalArgumentException e) {
-			throw new JwtAuthenticationException(JwtException.INVALID_TOKEN);
+			throw new JwtAuthenticationException(JwtExceptionCode.INVALID_TOKEN);
 		}
 	}
 
