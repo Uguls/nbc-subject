@@ -71,8 +71,12 @@ public class UserService {
 		Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
 		String accessToken = jwtTokenProvider.createAccessToken(authentication);
+		String refreshToken = jwtTokenProvider.createRefreshToken(authentication);
 
-		UserLoginResponse userLoginResponse = UserLoginResponse.builder().token(accessToken).build();
+		UserLoginResponse userLoginResponse = UserLoginResponse.builder()
+			.accessToken(accessToken)
+			.refreshToken(refreshToken)
+			.build();
 
 		return userLoginResponse;
 	}
