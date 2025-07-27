@@ -115,18 +115,21 @@ class UserServiceTest {
 			UserLoginRequest loginRequest = new UserLoginRequest("testuser", "Password1!");
 
 			String accessToken = "accessToken";
+			String refreshToken = "refreshToken";
 			Authentication authentication = mock(Authentication.class);
 
 			given(userRepository.findByUsername("testuser")).willReturn(Optional.of(user));
 			given(passwordEncoder.matches("Password1!", user.getPassword())).willReturn(true);
 			given(jwtTokenProvider.createAccessToken(authentication)).willReturn(accessToken);
+			given(jwtTokenProvider.createRefreshToken(authentication)).willReturn(refreshToken);
 			given(authenticationManager.authenticate(any())).willReturn(authentication);
 
 			// when
 			UserLoginResponse userLoginResponse = userService.login(loginRequest);
 
 			// then
-			assertThat(userLoginResponse.getToken()).isEqualTo(accessToken);
+			assertThat(userLoginResponse.getAccessToken()).isEqualTo(accessToken);
+			assertThat(userLoginResponse.getRefreshToken()).isEqualTo(refreshToken);
 		}
 
 		@Test
