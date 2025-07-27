@@ -1,5 +1,13 @@
 package nbc.nbcsubject.domain.user.service;
 
+import java.util.List;
+
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
 import lombok.RequiredArgsConstructor;
 import nbc.nbcsubject.common.security.jwt.JwtTokenProvider;
 import nbc.nbcsubject.domain.user.constants.UserExceptionCode;
@@ -11,66 +19,61 @@ import nbc.nbcsubject.domain.user.entity.User;
 import nbc.nbcsubject.domain.user.entity.UserRole;
 import nbc.nbcsubject.domain.user.exception.UserException;
 import nbc.nbcsubject.domain.user.repository.UserRepository;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
-    private final JwtTokenProvider jwtTokenProvider;
-    private final AuthenticationManager authenticationManager;
+	private final UserRepository userRepository;
+	private final PasswordEncoder passwordEncoder;
+	private final JwtTokenProvider jwtTokenProvider;
+	private final AuthenticationManager authenticationManager;
 
-    public UserSignupResponse signUp (UserSignupRequest request) {
+	public UserSignupResponse signUp(UserSignupRequest request) {
 
-        if (userRepository.existsByNickName(request.getNickname())) {
-            throw new UserException(UserExceptionCode.USER_ALREADY_EXISTS);
-        }
+		if (userRepository.existsByNickName(request.getNickname())) {
+			throw new UserException(UserExceptionCode.USER_ALREADY_EXISTS);
+		}
 
-        String encoded = passwordEncoder.encode(request.getPassword());
+		String encoded = passwordEncoder.encode(request.getPassword());
 
-        User user = User.builder()
-                .username(request.getUsername())
-                .nickname(request.getNickname())
-                .password(encoded)
-                .userRole(UserRole.ROLE_USER)
-                .build();
+		User user = User.builder()
+			.username(request.getUsername())
+			.nickname(request.getNickname())
+			.password(encoded)
+			.userRole(UserRole.ROLE_USER)
+			.build();
 
-        userRepository.save(user);
+		userRepository.save(user);
 
-        UserSignupResponse userSignupResponse = UserSignupResponse.builder()
-                .username(user.getUsername())
-                .nickname(user.getNickname())
-                .roles(List.of(user.getUserRole().name()))
-                .build();
+		UserSignupResponse userSignupResponse = UserSignupResponse.builder()
+			.userId(user.getId())
+			.username(user.getUsername())
+			.nickname(user.getNickname())
+			.roles(List.of(user.getUserRole().name()))
+			.build();
 
-        return userSignupResponse;
+		return userSignupResponse;
 
-    }
+	}
 
-    public UserLoginResponse login (UserLoginRequest request) {
-        User user = userRepository.findByUsername((request.getUsername()))
-                .orElseThrow(() -> new UserException(UserExceptionCode.USER_NOT_FOUND));
+	public UserLoginResponse login(UserLoginRequest request) {
+		User user = userRepository.findByUsername((request.getUsername()))
+			.orElseThrow(() -> new UserException(UserExceptionCode.USER_NOT_FOUND));
 
-        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
-            throw new UserException(UserExceptionCode.INVALID_CREDENTIALS);
-        }
+		if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+			throw new UserException(UserExceptionCode.INVALID_CREDENTIALS);
+		}
 
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword());
+		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+			request.getUsername(), request.getPassword());
 
-        Authentication authentication = authenticationManager.authenticate(authenticationToken);
+		Authentication authentication = authenticationManager.authenticate(authenticationToken);
 
-        String accessToken = jwtTokenProvider.createAccessToken(authentication);
+		String accessToken = jwtTokenProvider.createAccessToken(authentication);
 
-        UserLoginResponse userLoginResponse = UserLoginResponse.builder().token(accessToken).build();
+		UserLoginResponse userLoginResponse = UserLoginResponse.builder().token(accessToken).build();
 
-        return userLoginResponse;
-    }
+		return userLoginResponse;
+	}
 }

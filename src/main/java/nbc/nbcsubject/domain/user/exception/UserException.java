@@ -6,9 +6,9 @@ import nbc.nbcsubject.common.response.ResponseCode;
 
 @Getter
 public class UserException extends BaseException {
-    private final ResponseCode responseCode;
+	private final ResponseCode responseCode;
 
-    public UserException(ResponseCode responseCode) {
-        this.responseCode = responseCode;
-    }
+	public UserException(ResponseCode responseCode) {
+		this.responseCode = responseCode;
+	}
 }

@@ -1,14 +1,14 @@
 package nbc.nbcsubject.domain.admin.dto.response;
 
+import java.util.List;
+
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 @Builder
 public class UpdateUserRoleResponse {
-    private String username;
-    private String nickname;
-    private List<String> roles;
+	private String username;
+	private String nickname;
+	private List<String> roles;
 }

@@ -1,14 +1,15 @@
 package nbc.nbcsubject.domain.user.dto.response;
 
+import java.util.List;
+
 import lombok.Builder;
 import lombok.Getter;
-
-import java.util.List;
 
 @Getter
 @Builder
 public class UserSignupResponse {
-    private String username;
-    private String nickname;
-    private List<String> roles;
+	private Long userId;
+	private String username;
+	private String nickname;
+	private List<String> roles;
 }

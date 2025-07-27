@@ -1,7 +1,5 @@
 package nbc.nbcsubject.common.exception;
 
-import org.springframework.http.HttpStatus;
-
 import nbc.nbcsubject.common.response.ResponseCode;
 
 public abstract class BaseException extends RuntimeException {
