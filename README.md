@@ -14,18 +14,18 @@ Spring Boot 3.4와 Spring Security를 활용한 JWT 기반 사용자 인증 및 
 
 ## 🛠 기술 스택
 
-| 분류 | 기술 |
-|------|------|
-| **Framework** | Spring Boot 3.4.4 |
-| **Language** | Java 17 |
-| **Build Tool** | Gradle |
-| **Database** | H2 (개발), MySQL (운영) |
+| 분류 | 기술                    |
+|------|-----------------------|
+| **Framework** | Spring Boot 3.4.4     |
+| **Language** | Java 17               |
+| **Build Tool** | Gradle                |
+| **Database** | H2 (개발)               |
 | **Security** | Spring Security 6.4.4 |
-| **Authentication** | JWT (jjwt 0.12.6) |
-| **Password Encoding** | BCrypt |
-| **ORM** | Spring Data JPA |
-| **Documentation** | SpringDoc OpenAPI 3 |
-| **Testing** | JUnit 5, Mockito |
+| **Authentication** | JWT (jjwt 0.12.6)     |
+| **Password Encoding** | BCrypt                |
+| **ORM** | Spring Data JPA       |
+| **Documentation** | SpringDoc OpenAPI 3   |
+| **Testing** | JUnit 5, Mockito      |
 
 ## 🏗 아키텍처
 
@@ -135,7 +135,8 @@ Content-Type: application/json
 **응답 예시:**
 ```json
 {
-  "token": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlciI..."
+  "accessToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlciI...",
+  "refreshToken": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0dXNlciI..."
 }
 ```
 
