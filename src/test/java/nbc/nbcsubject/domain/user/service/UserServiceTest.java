@@ -70,7 +70,7 @@ class UserServiceTest {
 
 			String encodedPassword = "encodedPassword";
 
-			given(userRepository.existsByNickName("테스트유저")).willReturn(false);
+			given(userRepository.existsByNickname("테스트유저")).willReturn(false);
 			given(passwordEncoder.encode("Password1!")).willReturn(encodedPassword);
 
 			// when
@@ -92,7 +92,7 @@ class UserServiceTest {
 				"Password1!"
 			);
 
-			given(userRepository.existsByNickName("중복닉네임")).willReturn(true);
+			given(userRepository.existsByNickname("중복닉네임")).willReturn(true);
 		
 		    // when
 			UserException userException = assertThrows(UserException.class, () -> userService.signUp(request));

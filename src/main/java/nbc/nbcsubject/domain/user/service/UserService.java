@@ -31,7 +31,7 @@ public class UserService {
 
 	public UserSignupResponse signUp(UserSignupRequest request) {
 
-		if (userRepository.existsByNickName(request.getNickname())) {
+		if (userRepository.existsByNickname(request.getNickname())) {
 			throw new UserException(UserExceptionCode.USER_ALREADY_EXISTS);
 		}
 
